@@ -1,6 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View,ImageBackground,Image, TouchableOpacity } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View,
+  ImageBackground,
+  Image, 
+  TouchableOpacity 
+} from 'react-native';
 import * as Font  from 'expo-font';
+import { ScrollView } from 'react-native-gesture-handler';
 class Home extends React.Component{
     constructor(props){
         super(props);
@@ -20,42 +28,46 @@ class Home extends React.Component{
     render(){
         return (
             
-            (this.state.fontsLoaded) ? <View style={styles.container}>
+            (this.state.fontsLoaded) ?<ScrollView style={{flex:1}}>
+              
+            <View style={styles.container}>
             <ImageBackground source={require('../../../assets/images/bg3.jpg')} style={styles.image}>
               </ImageBackground>
               
                    <View style={styles.headingWrap}>
-                      <Text style={styles.mainHeading}>Welcome</Text>
-                      <Text style={styles.subHeading}>convert Image To PDF</Text>
+                      <Text style={styles.mainHeading} allowFontScaling={false}>Welcome</Text>
+                      <Text style={styles.subHeading} allowFontScaling={false}>convert Image To PDF</Text>
                   </View>
                  
               
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate('Album')}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate('Album',{num:2})}>
               <View style={styles.infoWrap}>
                   <View style={{display:'flex',flexDirection:'row'}}>
                     <Image style={styles.iconImg} source={require('../../../assets/images/pdf.png')} />
-                    <Text style={styles.infoHead}>PDF Files</Text>
+                    <Text style={styles.infoHead} allowFontScaling={false}>PDF Files</Text>
                   </View>
-                  <Text style={styles.infoPara}>View all the PDF files and share them with eveyone</Text>
+                  <Text style={styles.infoPara} allowFontScaling={false}>View all the PDF files and share them with eveyone</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.props.navigation.navigate('Camera')}> 
               <View style={styles.infoWrap}>
               <View style={{display:'flex',flexDirection:'row'}}>
                     <Image style={styles.iconImg} source={require('../../../assets/images/camera-icon.png')} />
-                    <Text style={styles.infoHead}>Scan</Text>
+                    <Text style={styles.infoHead} allowFontScaling={false}>Scan</Text>
                   </View>
-                  <Text style={styles.infoPara}>Scan the document and convert it into PDF</Text>
+                  <Text style={styles.infoPara} allowFontScaling={false}>Scan the document and convert it into PDF</Text>
               </View>
             </TouchableOpacity>
+          
           </View>
+          </ScrollView>
             : null
           );
     }
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      flexGrow:1,
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'flex-start',

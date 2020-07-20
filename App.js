@@ -11,10 +11,41 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name="Camera" component={CameraComponent}/>
-        <Stack.Screen name="Album" component={AlbumScreen}/>
-        <Stack.Screen name="ImageView" component={ImageView}/>        
+        <Stack.Screen 
+          name="Home" 
+          component={Home} 
+          options={{
+            headerTitleStyle: {
+              textAlign:'center'
+            },
+          }}
+          />
+        <Stack.Screen 
+          name="Camera" 
+          component={CameraComponent}  
+          options={{
+            headerTitleStyle: {
+              textAlign:'center'
+            },
+          }}/>
+        <Stack.Screen 
+          name="Album" 
+          component={AlbumScreen}
+          options={{
+            headerTitleStyle: {
+              textAlign:'center'
+            },
+          }}
+          />
+        <Stack.Screen 
+          name="ImageView" 
+          component={ImageView}
+          options={{
+            headerTitleStyle: {
+              textAlign:'center'
+            },
+          }}
+          />        
       </Stack.Navigator>
     </NavigationContainer>
   );

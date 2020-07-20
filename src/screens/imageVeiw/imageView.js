@@ -8,6 +8,7 @@ class ImageView extends React.Component{
     constructor(props){
         super(props);
     }
+    
     delete = (imgPath)=>{
         Alert.alert(
             "Delete Photo",
@@ -20,7 +21,7 @@ class ImageView extends React.Component{
               },
               { text: "OK", onPress: () => {
                   CameraRoll.deletePhotos([imgPath]);
-                  this.props.navigation.navigate('Home');
+                  this.props.navigation.popToTop();
                 } }
             ],
             { cancelable: false }
@@ -34,7 +35,7 @@ class ImageView extends React.Component{
         try {
             const options = {
                 imagePaths: [`${editedPath}`],
-                name: 'DocScanner.pdf',
+                name: 'Scannifier.pdf',
                 maxSize: { // optional maximum image dimension - larger images will be resized
                     width: screenWidth * 900,
                     height: screenHeight * 900,
@@ -42,7 +43,7 @@ class ImageView extends React.Component{
                 quality: 1, // optional compression paramter
             };
             const pdf = await RNImageToPdf.createPDFbyImages(options);
-            console.log(pdf.filePath);
+            
             Share.open({url:`file://${pdf.filePath}`})
             .then((res) => { console.log(res) })
             .catch((err) => { err && console.log(err); });
@@ -52,7 +53,6 @@ class ImageView extends React.Component{
         
     }
     render(){
-        console.log(this.props.route.params.item);
         const width = this.props.route.params.item.width;
         const height = this.props.route.params.item.height;
         return(
@@ -61,12 +61,17 @@ class ImageView extends React.Component{
                      style={{width:'100%',height:300}}
                     source={{uri:this.props.route.params.item.uri}}/>
                 <View style={styles.btnWrap}>
-                    <TouchableOpacity onPress={()=>this.sharePdf(this.props.route.params.item)}>
-                        <Text style={{color:'#fff'}}>Share</Text>
+                    <TouchableOpacity 
+                        style={styles.iconWrap}
+                        onPress={()=>this.sharePdf(this.props.route.params.item)}>
+                        <Image style={styles.icons} source={require('../../../assets/images/share.png')} />
+                        <Text style={styles.text}>Share</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={
-                        ()=>this.delete(this.props.route.params.item.uri)}>
-                        <Text>Delete</Text>
+                    <TouchableOpacity
+                        style={styles.iconWrap}
+                        onPress={()=>this.delete(this.props.route.params.item.uri)}>
+                        <Image style={styles.icons} source={require('../../../assets/images/del.png')} />
+                        <Text style={styles.text}>Delete</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -87,6 +92,24 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         width:'80%',
-        margin:20
+        margin:20,
+    },
+    icons:{
+        width:32,
+        height:32,
+        marginRight:5
+    },
+    iconWrap:{
+        display:'flex',
+        flexDirection:'row',
+        paddingVertical:10,
+        paddingHorizontal:10,
+        backgroundColor:'#B8D0EB',
+        borderRadius:8
+    },
+    text:{
+        marginTop:7,
+        textTransform:'uppercase',
+        color:'#fff'
     }
 })

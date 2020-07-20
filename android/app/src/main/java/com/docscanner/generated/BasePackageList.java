@@ -1,4 +1,4 @@
-package com.docscanner.generated;
+package com.Scannifier.develophoria.generated;
 
 import java.util.Arrays;
 import java.util.List;

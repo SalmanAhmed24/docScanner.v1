@@ -1,4 +1,4 @@
-package com.docscanner;
+package com.Scannifier.develophoria;
 
 import android.os.Bundle;
 

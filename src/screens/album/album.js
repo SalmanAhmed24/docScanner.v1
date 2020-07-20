@@ -16,7 +16,8 @@ class AlbumScreen extends React.Component{
         super(props);
         this.state = {
             dataArray:[],
-            fontsLoaded:false
+            fontsLoaded:false,
+            randomNum:''
         }
     }
   async componentDidMount(){
@@ -36,17 +37,14 @@ class AlbumScreen extends React.Component{
     viewImage = (item)=>{
         this.props.navigation.navigate('ImageView',{item:item})
     }
-    componentWillUnmount(){
-        this.props.navigation.navigate('Home')
-    }
+    
     render(){
-        console.log('these are the imaegs',this.state.dataArray);
+        
         const imageArray = this.state.dataArray.map(item=>item.node.image);
-        console.log(imageArray);
         return(
             <View style={styles.container}>
                 {
-                    (this.state.fontsLoaded) ? <Text style={styles.galHead}>Gallery</Text>
+                    (this.state.fontsLoaded) ? <Text allowFontScaling={false} style={styles.galHead}>Gallery</Text>
                     : null
                 }
                 <ImageBackground 
@@ -54,7 +52,9 @@ class AlbumScreen extends React.Component{
                 source={require('../../../assets/images/bg1.jpg')}>
                 </ImageBackground>
                 {
-                    (imageArray.length == 0) ? <Text style={{color:'#fff'}}>No Pdf found.</Text>
+                    (imageArray.length == 0) ? <View style={styles.notFoundWrap}>
+                        <Text allowFontScaling={false} style={{fontSize:18,paddingVertical:20}}>No Pdf found. Want to scan document go back to scan document</Text>
+                        </View>
                     : <FlatList 
                     style={{width:'100%'}}
                     horizontal={false}
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         alignItems:'center',
         position:'relative',
+        width:'100%'
     },
     imagePdf:{
         width:100,
@@ -102,5 +103,21 @@ const styles = StyleSheet.create({
         left:0,
         opacity:0.2,
         zIndex:0
+    },
+    btnBlue:{
+        backgroundColor:'blue',
+        fontSize:30,
+        color:'#fff',
+        paddingVertical:10,
+        paddingHorizontal:20,
+        borderRadius:300,
+        alignSelf:'flex-end'
+    },
+    notFoundWrap:{
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'center',
+        padding:20,
+
     }
 })

@@ -22,6 +22,7 @@ class CameraComponent extends React.Component{
     return true;
 }
      componentDidMount(){
+       
        ImagePicker.openCamera({
         cropping: true,
       }).then(image => {
